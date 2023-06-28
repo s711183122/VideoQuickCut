@@ -18,16 +18,18 @@ class QuickCut:
         self.w = int(self.x1-self.x0)
         self.h = int(self.y1-self.y0)
         self.time = int(time)
-        self.name = f'quickcut_{self.x0}_{self.y0}_{self.time}_{str(int(ttiimmee.time()))[5:10]}'
-        if type == 'n': self.savename = f'{output_path_n}{self.name}.mp4'
-        elif type == 'm': self.savename = f'{output_path_m}{self.name}.mp4'
+        self.type = type
+        self.name = f'{self.type}_quickcut_{self.x0}_{self.y0}_{self.time}_{str(int(ttiimmee.time()))[5:10]}'
+        if self.type == 'n': self.savename = f'{output_path_n}{self.name}.mp4'
+        elif self.type == 'm': self.savename = f'{output_path_m}{self.name}.mp4'
         self.VW = cv2.VideoWriter(self.savename, fourcc, fps, (self.w, self.h))
     def __str__(self) -> str:
         return f'{self.name} L=({self.x0},{self.y0}) R=({self.x1},{self.y1})'
     def draw(self, now_frame):
         if not self.has_save:
             f = now_frame.copy()
-            cv2.rectangle(f, self.L, self.R, (0, 0, 255), 2)
+            if self.type == 'n': cv2.rectangle(f, self.L, self.R, (0, 255, 0), 2)
+            elif self.type == 'm': cv2.rectangle(f, self.L, self.R, (0, 0, 255), 2)
             return f
         else:
             return now_frame
