@@ -1,5 +1,8 @@
 /output
 /old
+/bigcity_output
+/taimao_output
+/video
 
 *.mp4
 *.avi
